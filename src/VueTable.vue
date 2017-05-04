@@ -259,19 +259,23 @@
 
 				axios.post('/api/vue-table/upload', formData).then(function(response){
 					let data = response.data;
-					console.log(data);
 
+					console.log('test 1');
 					self.list = Object.assign(self.list, data);
 
+					console.log('test 2');
 					let import_id = data.import_id;
 
+					console.log('test 3');
 					self.uploads.push(TableUpload.create(import_id));
 
+					console.log('test 4');
 					window.Echo.channel('upload-progress-' + import_id)
-						.listen('\\OrckidLab\\VueTable\\Events\\VueTableUploading', function(event){
+						.listen('demo', function(event){
 							console.log(event);
 							self.findUpload(import_id).first.status(event.progress);
 
+							console.log('test 5');
 							if(self.findUpload(import_id).first.completed){
 								self.reload();
 							}
