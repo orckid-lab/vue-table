@@ -10758,8 +10758,6 @@ var TableProcess = function () {
 			axios.post('/api/vue-table/upload', formData).then(function (response) {
 				var data = response.data;
 
-				self.list = Object.assign(self.list, data);
-
 				var import_id = data.import_id;
 
 				self.uploads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["b" /* TableUpload */].create(import_id));
