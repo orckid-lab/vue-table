@@ -260,8 +260,6 @@
 				axios.post('/api/vue-table/upload', formData).then(function(response){
 					let data = response.data;
 
-					self.list = Object.assign(self.list, data);
-
 					let import_id = data.import_id;
 
 					self.uploads.push(TableUpload.create(import_id));
