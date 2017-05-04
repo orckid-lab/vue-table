@@ -10342,12 +10342,159 @@ Vue.component('vue-table', __WEBPACK_IMPORTED_MODULE_0__VueTable_vue___default.a
 
 /***/ }),
 
-/***/ 12:
+/***/ 30:
+/***/ (function(module, exports) {
+
+module.exports = {
+	hasResults: function hasResults() {
+		return this.list.hasResults;
+	},
+	labels: function labels() {
+		return this.list.labels;
+	},
+	columns: function columns() {
+		return this.list.columns;
+	},
+	rows: function rows() {
+		return this.list.rows;
+	},
+	hasPages: function hasPages() {
+		return this.list.hasPagination;
+	},
+	hasMorePages: function hasMorePages() {
+		return this.list.current_page !== this.list.last_page;
+	},
+	onFirstPage: function onFirstPage() {
+		return this.list.current_page === 1;
+	},
+	previousUrl: function previousUrl() {
+		return this.list.prev_page_url;
+	},
+	nextUrl: function nextUrl() {
+		return this.list.next_page_url;
+	},
+	pagination: function pagination() {
+		return this.list.pagination;
+	},
+	showing: function showing() {
+		return this.list.showing;
+	},
+	total: function total() {
+		return this.list.total;
+	},
+	title: function title() {
+		return this.list.title;
+	}
+};
+
+/***/ }),
+
+/***/ 31:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TableDownload; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TableUpload; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Process = function () {
+	function Process() {
+		_classCallCheck(this, Process);
+
+		if (new.target === Process) {
+			throw new TypeError("Cannot construct Abstract instances directly");
+		}
+	}
+
+	_createClass(Process, [{
+		key: "status",
+		value: function status(progress) {
+			this.progress = progress;
+
+			return this;
+		}
+	}, {
+		key: "completed",
+		get: function get() {
+			return this.progress === 100;
+		}
+	}], [{
+		key: "create",
+		value: function create() {
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+
+			return new (Function.prototype.bind.apply(this, [null].concat(args)))();
+		}
+	}]);
+
+	return Process;
+}();
+
+var TableDownload = function (_Process) {
+	_inherits(TableDownload, _Process);
+
+	function TableDownload(id, path) {
+		_classCallCheck(this, TableDownload);
+
+		var _this = _possibleConstructorReturn(this, (TableDownload.__proto__ || Object.getPrototypeOf(TableDownload)).call(this));
+
+		_this.id = id;
+
+		_this.path = path;
+
+		_this.progress = 0;
+		return _this;
+	}
+
+	return TableDownload;
+}(Process);
+
+var TableUpload = function (_Process2) {
+	_inherits(TableUpload, _Process2);
+
+	function TableUpload(id) {
+		_classCallCheck(this, TableUpload);
+
+		var _this2 = _possibleConstructorReturn(this, (TableUpload.__proto__ || Object.getPrototypeOf(TableUpload)).call(this));
+
+		_this2.id = id;
+
+		_this2.progress = 0;
+		return _this2;
+	}
+
+	return TableUpload;
+}(Process);
+
+
+
+/***/ }),
+
+/***/ 32:
+/***/ (function(module, exports) {
+
+module.exports = {
+	vueTable: {
+		required: true
+	}
+};
+
+/***/ }),
+
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__module_Process__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__module_Process__ = __webpack_require__(31);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10521,7 +10668,7 @@ var TableProcess = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: __webpack_require__(33),
+	props: __webpack_require__(32),
 
 	data: function data() {
 		return {
@@ -10532,7 +10679,7 @@ var TableProcess = function () {
 	},
 
 
-	computed: __webpack_require__(31),
+	computed: __webpack_require__(30),
 
 	mounted: function mounted() {},
 
@@ -10638,159 +10785,12 @@ var TableProcess = function () {
 
 /***/ }),
 
-/***/ 31:
-/***/ (function(module, exports) {
-
-module.exports = {
-	hasResults: function hasResults() {
-		return this.list.hasResults;
-	},
-	labels: function labels() {
-		return this.list.labels;
-	},
-	columns: function columns() {
-		return this.list.columns;
-	},
-	rows: function rows() {
-		return this.list.rows;
-	},
-	hasPages: function hasPages() {
-		return this.list.hasPagination;
-	},
-	hasMorePages: function hasMorePages() {
-		return this.list.current_page !== this.list.last_page;
-	},
-	onFirstPage: function onFirstPage() {
-		return this.list.current_page === 1;
-	},
-	previousUrl: function previousUrl() {
-		return this.list.prev_page_url;
-	},
-	nextUrl: function nextUrl() {
-		return this.list.next_page_url;
-	},
-	pagination: function pagination() {
-		return this.list.pagination;
-	},
-	showing: function showing() {
-		return this.list.showing;
-	},
-	total: function total() {
-		return this.list.total;
-	},
-	title: function title() {
-		return this.list.title;
-	}
-};
-
-/***/ }),
-
-/***/ 32:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TableDownload; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TableUpload; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Process = function () {
-	function Process() {
-		_classCallCheck(this, Process);
-
-		if (new.target === Process) {
-			throw new TypeError("Cannot construct Abstract instances directly");
-		}
-	}
-
-	_createClass(Process, [{
-		key: "status",
-		value: function status(progress) {
-			this.progress = progress;
-
-			return this;
-		}
-	}, {
-		key: "completed",
-		get: function get() {
-			return this.progress === 100;
-		}
-	}], [{
-		key: "create",
-		value: function create() {
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
-
-			return new (Function.prototype.bind.apply(this, [null].concat(args)))();
-		}
-	}]);
-
-	return Process;
-}();
-
-var TableDownload = function (_Process) {
-	_inherits(TableDownload, _Process);
-
-	function TableDownload(id, path) {
-		_classCallCheck(this, TableDownload);
-
-		var _this = _possibleConstructorReturn(this, (TableDownload.__proto__ || Object.getPrototypeOf(TableDownload)).call(this));
-
-		_this.id = id;
-
-		_this.path = path;
-
-		_this.progress = 0;
-		return _this;
-	}
-
-	return TableDownload;
-}(Process);
-
-var TableUpload = function (_Process2) {
-	_inherits(TableUpload, _Process2);
-
-	function TableUpload(id) {
-		_classCallCheck(this, TableUpload);
-
-		var _this2 = _possibleConstructorReturn(this, (TableUpload.__proto__ || Object.getPrototypeOf(TableUpload)).call(this));
-
-		_this2.id = id;
-
-		_this2.progress = 0;
-		return _this2;
-	}
-
-	return TableUpload;
-}(Process);
-
-
-
-/***/ }),
-
-/***/ 33:
-/***/ (function(module, exports) {
-
-module.exports = {
-	vueTable: {
-		required: true
-	}
-};
-
-/***/ }),
-
 /***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(40)(
   /* script */
-  __webpack_require__(12),
+  __webpack_require__(33),
   /* template */
   __webpack_require__(41),
   /* scopeId */
