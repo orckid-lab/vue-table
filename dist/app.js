@@ -10334,7 +10334,7 @@ return jQuery;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueTable_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueTable_vue__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__VueTable_vue__);
 
 
@@ -10342,7 +10342,7 @@ Vue.component('vue-table', __WEBPACK_IMPORTED_MODULE_0__VueTable_vue___default.a
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -10389,7 +10389,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10478,7 +10478,7 @@ var TableUpload = function (_Process2) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -10489,12 +10489,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 33:
+/***/ 34:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__module_Process__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__module_Process__ = __webpack_require__(32);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10668,7 +10668,7 @@ var TableProcess = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: __webpack_require__(32),
+	props: __webpack_require__(33),
 
 	data: function data() {
 		return {
@@ -10679,7 +10679,7 @@ var TableProcess = function () {
 	},
 
 
-	computed: __webpack_require__(30),
+	computed: __webpack_require__(31),
 
 	mounted: function mounted() {},
 
@@ -10710,7 +10710,7 @@ var TableProcess = function () {
 
 				self.downloads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["a" /* TableDownload */].create(export_id, data.download));
 
-				window.Echo.channel('download-progress-' + export_id).listen('\\OrckidLab\\VueTable\\Events\\VueTableDownloading', function (event) {
+				window.Echo.channel('download-progress-' + export_id).listen('.OrckidLab.VueTable.Events.VueTableDownloading', function (event) {
 					console.log(event);
 					self.findDownload(export_id).first.status(event.progress);
 				});
@@ -10758,21 +10758,15 @@ var TableProcess = function () {
 			axios.post('/api/vue-table/upload', formData).then(function (response) {
 				var data = response.data;
 
-				console.log('test 1');
 				self.list = Object.assign(self.list, data);
 
-				console.log('test 2');
 				var import_id = data.import_id;
 
-				console.log('test 3');
 				self.uploads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["b" /* TableUpload */].create(import_id));
 
-				console.log('test 4');
-				window.Echo.channel('upload-progress-' + import_id).listen('demo', function (event) {
-					console.log(event);
+				window.Echo.channel('upload-progress-' + import_id).listen('.OrckidLab.VueTable.Events.Uploading', function (event) {
 					self.findUpload(import_id).first.status(event.progress);
 
-					console.log('test 5');
 					if (self.findUpload(import_id).first.completed) {
 						self.reload();
 					}
@@ -10785,14 +10779,14 @@ var TableProcess = function () {
 
 /***/ }),
 
-/***/ 39:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(40)(
+var Component = __webpack_require__(41)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(42),
   /* scopeId */
   null,
   /* cssModules */
@@ -10820,7 +10814,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -10874,7 +10868,7 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
