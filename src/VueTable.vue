@@ -172,7 +172,13 @@
 		computed: require('./computed'),
 
 		mounted(){
+			let self = this;
 
+			if(this.url){
+				axios(this.url).then(function(response){
+					Object.assign(self.list, response.data);
+				})
+			}
 		},
 
 		methods: {
