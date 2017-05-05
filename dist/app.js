@@ -10493,7 +10493,12 @@ module.exports = {
 				from: 0,
 				hasPagination: false,
 				showing: 0,
-				title: ''
+				title: '',
+				rows: [],
+				ajax: {
+					target: '',
+					url: ''
+				}
 			};
 		}
 	},
@@ -10717,11 +10722,9 @@ var TableProcess = function () {
 		loadPage: function loadPage(url) {
 			var self = this;
 
-			$.post('/api/vue-table/page', Object.assign({}, self.list.ajax, { url: url }), function (data) {
-				self.list = Object.assign(self.list, data);
-
-				//UrlQuery.initiate().add(self.list.attribute, data.current_page).updateUrl();
-			}, 'json');
+			axios.post('/api/vue-table/page', Object.assign({}, self.list.ajax, { url: url })).then(function (response) {
+				Object.assign(self.list, response.data);
+			});
 		},
 		download: function download() {
 			var self = this;

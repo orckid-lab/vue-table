@@ -11,6 +11,11 @@ module.exports = {
 				hasPagination: false,
 				showing: 0,
 				title: '',
+				rows: [],
+				ajax: {
+					target: '',
+					url: '',
+				}
 			}
 		}
 	},
