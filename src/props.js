@@ -1,5 +1,8 @@
 module.exports = {
 	vueTable: {
-		required: true,
+		type: Object,
+	},
+	url: {
+		type: String,
 	}
 };
