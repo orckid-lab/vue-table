@@ -10483,7 +10483,22 @@ var TableUpload = function (_Process2) {
 
 module.exports = {
 	vueTable: {
-		required: true
+		type: Object,
+		default: function _default() {
+			return {
+				hasResult: false,
+				total: 0,
+				labels: [],
+				current_page: 0,
+				from: 0,
+				hasPagination: false,
+				showing: 0,
+				title: ''
+			};
+		}
+	},
+	url: {
+		type: String
 	}
 };
 
@@ -10681,7 +10696,15 @@ var TableProcess = function () {
 
 	computed: __webpack_require__(31),
 
-	mounted: function mounted() {},
+	mounted: function mounted() {
+		var self = this;
+
+		if (this.url) {
+			axios(this.url).then(function (response) {
+				Object.assign(self.list, response.data);
+			});
+		}
+	},
 
 
 	methods: {
