@@ -2,7 +2,7 @@
 	<div>
 		<h2 v-html="title"></h2><button @click.prevent="reload">Reload</button>
 
-		<table class="table" v-if="hasResults">
+		<table class="table" v-if="hasResult">
 			<thead>
 			<tr>
 				<th v-for="column in labels"><abbr :title="column">{{ column }}</abbr></th>

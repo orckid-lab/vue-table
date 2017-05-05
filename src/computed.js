@@ -1,6 +1,6 @@
 module.exports = {
-	hasResults(){
-		return this.list.hasResults;
+	hasResult(){
+		return this.list.hasResult;
 	},
 
 	labels(){
