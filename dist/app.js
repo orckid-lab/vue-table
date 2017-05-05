@@ -10346,8 +10346,8 @@ Vue.component('vue-table', __WEBPACK_IMPORTED_MODULE_0__VueTable_vue___default.a
 /***/ (function(module, exports) {
 
 module.exports = {
-	hasResults: function hasResults() {
-		return this.list.hasResults;
+	hasResult: function hasResult() {
+		return this.list.hasResult;
 	},
 	labels: function labels() {
 		return this.list.labels;
@@ -10904,7 +10904,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.reload($event)
       }
     }
-  }, [_vm._v("Reload")]), _vm._v(" "), (_vm.hasResults) ? _c('table', {
+  }, [_vm._v("Reload")]), _vm._v(" "), (_vm.hasResult) ? _c('table', {
     staticClass: "table"
   }, [_c('thead', [_c('tr', _vm._l((_vm.labels), function(column) {
     return _c('th', [_c('abbr', {
