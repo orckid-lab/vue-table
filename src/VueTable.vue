@@ -193,11 +193,9 @@
 			loadPage(url){
 				let self = this;
 
-				$.post('/api/vue-table/page', Object.assign({}, self.list.ajax, {url: url}), function (data) {
-					self.list = Object.assign(self.list, data);
-
-					//UrlQuery.initiate().add(self.list.attribute, data.current_page).updateUrl();
-				}, 'json');
+				axios.post('/api/vue-table/page', Object.assign({}, self.list.ajax, {url: url})).then(function (response) {
+					Object.assign(self.list, response.data);
+				});
 			},
 
 			download(){
