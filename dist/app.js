@@ -10781,21 +10781,27 @@ var TableProcess = function () {
 
 			formData.append('target', self.list.ajax.target);
 
-			axios.post('/api/vue-table/upload', formData).then(function (response) {
+			var url = '/api/vue-table/upload';
+
+			var uploadCallback = function uploadCallback(response) {
 				var data = response.data;
 
-				var import_id = data.import_id;
+				var file_name = data.file_name;
 
-				self.uploads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["b" /* TableUpload */].create(import_id));
+				if (!self.findUpload(file_name).first) {
+					self.uploads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["b" /* TableUpload */].create(file_name));
+				}
 
-				window.Echo.channel('upload-progress-' + import_id).listen('.OrckidLab.VueTable.Events.Uploading', function (event) {
-					self.findUpload(import_id).first.status(event.progress);
+				self.findUpload(file_name).first.status(data.progress);
 
-					if (self.findUpload(import_id).first.completed) {
-						self.reload();
-					}
-				});
-			});
+				if (data.is_last) {
+					return false;
+				}
+
+				axios.post(url, response.data).then(uploadCallback);
+			};
+
+			axios.post(url, formData).then(uploadCallback);
 		}
 	}
 });

@@ -261,22 +261,27 @@
 
 				formData.append('target', self.list.ajax.target);
 
-				axios.post('/api/vue-table/upload', formData).then(function(response){
+				let url = '/api/vue-table/upload';
+
+				let uploadCallback = function(response){
 					let data = response.data;
 
-					let import_id = data.import_id;
+					let file_name = data.file_name;
 
-					self.uploads.push(TableUpload.create(import_id));
+					if(!self.findUpload(file_name).first){
+						self.uploads.push(TableUpload.create(file_name));
+					}
 
-					window.Echo.channel('upload-progress-' + import_id)
-						.listen('.OrckidLab.VueTable.Events.Uploading', function(event){
-							self.findUpload(import_id).first.status(event.progress);
+					self.findUpload(file_name).first.status(data.progress);
 
-							if(self.findUpload(import_id).first.completed){
-								self.reload();
-							}
-						});
-				});
+					if(data.is_last){
+						return false;
+					}
+
+					axios.post(url, response.data).then(uploadCallback);
+				};
+
+				axios.post(url, formData).then(uploadCallback);
 			}
 		}
 	}
