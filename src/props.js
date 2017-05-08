@@ -4,22 +4,38 @@ module.exports = {
 		default(){
 			return {
 				hasResult: false,
-				total: 0,
-				labels: [],
-				current_page: 0,
-				from: 0,
 				hasPagination: false,
-				showing: 0,
-				title: '',
+				columns: [],
+				labels: [],
 				rows: [],
+				pagination: [],
+				showing: 0,
+				title: "",
 				ajax: {
-					target: '',
-					url: '',
-				}
+					target: "",
+					url: ""
+				},
+				total: 0,
+				per_page: 0,
+				current_page: 0,
+				last_page: 0,
+				next_page_url: "",
+				prev_page_url: "",
+				from: 0,
+				to: 0,
+				data: []
 			}
 		}
 	},
 	url: {
 		type: String,
+	},
+	pagingUrl: {
+		type: String,
+		default: '/api/vue-table/page',
+	},
+	importUrl: {
+		type: String,
+		default: '/api/vue-table/upload',
 	}
 };
