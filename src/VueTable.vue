@@ -73,6 +73,18 @@
 					<span>
 						<progress max="100" :value="upload.progress"></progress>{{ upload.progress }}
 					</span>
+					<span>Total uploaded: {{ upload.totalUploaded }}</span>
+					<span>Total failed records: {{ upload.totalFailed }}</span>
+					<div>
+						<ul>
+							<li v-for="error in upload.errors">
+								The row {{ error.index }} failed to upload.
+								<p v-for="log in error.errors">
+									{{ log }}
+								</p>
+							</li>
+						</ul>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -193,7 +205,7 @@
 			loadPage(url){
 				let self = this;
 
-				axios.post('/api/vue-table/page', Object.assign({}, self.list.ajax, {url: url})).then(function (response) {
+				axios.post(self.pagingUrl, Object.assign({}, self.list.ajax, {url: url})).then(function (response) {
 					Object.assign(self.list, response.data);
 				});
 			},
@@ -261,7 +273,7 @@
 
 				formData.append('target', self.list.ajax.target);
 
-				let url = '/api/vue-table/upload';
+				let url = self.importUrl;
 
 				let uploadCallback = function(response){
 					let data = response.data;
@@ -272,9 +284,13 @@
 						self.uploads.push(TableUpload.create(file_name));
 					}
 
-					self.findUpload(file_name).first.status(data.progress);
+					self.findUpload(file_name).first
+						.status(data.progress)
+						.uploaded(data.rows.uploaded)
+						.failed(data.rows.failed);
 
 					if(data.is_last){
+						self.reload();
 						return false;
 					}
 
