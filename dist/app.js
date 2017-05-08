@@ -10468,8 +10468,49 @@ var TableUpload = function (_Process2) {
 		_this2.id = id;
 
 		_this2.progress = 0;
+
+		_this2.rows = {
+			uploaded: [],
+			failed: []
+		};
 		return _this2;
 	}
+
+	_createClass(TableUpload, [{
+		key: "uploaded",
+		value: function uploaded(row) {
+			this.rows.uploaded = this.rows.uploaded.concat(row);
+
+			return this;
+		}
+	}, {
+		key: "failed",
+		value: function failed(row) {
+			this.rows.failed = this.rows.failed.concat(row);
+
+			return this;
+		}
+	}, {
+		key: "totalUploaded",
+		get: function get() {
+			return this.rows.uploaded.length;
+		}
+	}, {
+		key: "totalFailed",
+		get: function get() {
+			return this.rows.failed.length;
+		}
+	}, {
+		key: "uploads",
+		get: function get() {
+			return this.rows.uploaded;
+		}
+	}, {
+		key: "errors",
+		get: function get() {
+			return this.rows.failed;
+		}
+	}]);
 
 	return TableUpload;
 }(Process);
@@ -10487,23 +10528,39 @@ module.exports = {
 		default: function _default() {
 			return {
 				hasResult: false,
-				total: 0,
-				labels: [],
-				current_page: 0,
-				from: 0,
 				hasPagination: false,
-				showing: 0,
-				title: '',
+				columns: [],
+				labels: [],
 				rows: [],
+				pagination: [],
+				showing: 0,
+				title: "",
 				ajax: {
-					target: '',
-					url: ''
-				}
+					target: "",
+					url: ""
+				},
+				total: 0,
+				per_page: 0,
+				current_page: 0,
+				last_page: 0,
+				next_page_url: "",
+				prev_page_url: "",
+				from: 0,
+				to: 0,
+				data: []
 			};
 		}
 	},
 	url: {
 		type: String
+	},
+	pagingUrl: {
+		type: String,
+		default: '/api/vue-table/page'
+	},
+	importUrl: {
+		type: String,
+		default: '/api/vue-table/upload'
 	}
 };
 
@@ -10519,6 +10576,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10722,7 +10791,7 @@ var TableProcess = function () {
 		loadPage: function loadPage(url) {
 			var self = this;
 
-			axios.post('/api/vue-table/page', Object.assign({}, self.list.ajax, { url: url })).then(function (response) {
+			axios.post(self.pagingUrl, Object.assign({}, self.list.ajax, { url: url })).then(function (response) {
 				Object.assign(self.list, response.data);
 			});
 		},
@@ -10781,7 +10850,7 @@ var TableProcess = function () {
 
 			formData.append('target', self.list.ajax.target);
 
-			var url = '/api/vue-table/upload';
+			var url = self.importUrl;
 
 			var uploadCallback = function uploadCallback(response) {
 				var data = response.data;
@@ -10792,9 +10861,10 @@ var TableProcess = function () {
 					self.uploads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["b" /* TableUpload */].create(file_name));
 				}
 
-				self.findUpload(file_name).first.status(data.progress);
+				self.findUpload(file_name).first.status(data.progress).uploaded(data.rows.uploaded).failed(data.rows.failed);
 
 				if (data.is_last) {
+					self.reload();
 					return false;
 				}
 
@@ -11017,7 +11087,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "max": "100",
         "value": upload.progress
       }
-    }), _vm._v(_vm._s(upload.progress) + "\n\t\t\t\t")])])
+    }), _vm._v(_vm._s(upload.progress) + "\n\t\t\t\t")]), _vm._v(" "), _c('span', [_vm._v("Total uploaded: " + _vm._s(upload.totalUploaded))]), _vm._v(" "), _c('span', [_vm._v("Total failed records: " + _vm._s(upload.totalFailed))]), _vm._v(" "), _c('div', [_c('ul', _vm._l((upload.errors), function(error) {
+      return _c('li', [_vm._v("\n\t\t\t\t\t\t\tThe row " + _vm._s(error.index) + " failed to upload.\n\t\t\t\t\t\t\t"), _vm._l((error.errors), function(log) {
+        return _c('p', [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(log) + "\n\t\t\t\t\t\t\t")])
+      })], 2)
+    }))])])
   }))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
