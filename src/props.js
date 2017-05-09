@@ -37,5 +37,9 @@ module.exports = {
 	importUrl: {
 		type: String,
 		default: '/api/vue-table/upload',
+	},
+	destroyUrl: {
+		type: String,
+		default: '/api/vue-table/destroy',
 	}
 };

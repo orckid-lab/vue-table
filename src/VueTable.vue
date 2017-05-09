@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h2 v-html="title"></h2><button @click.prevent="reload">Reload</button>
-
+		<h2 v-html="title"></h2><button type="button" @click.prevent="reload">Reload</button>
+		<button type="button" @click.prevent="destroy">Delete all</button>
 		<table class="table" v-if="hasResult">
 			<thead>
 			<tr>
@@ -298,6 +298,12 @@
 				};
 
 				axios.post(url, formData).then(uploadCallback);
+			},
+
+			destroy(){
+				axios.post(this.destroyUrl, this.list.ajax).then(function(){
+					this.reload();
+				}.bind(this))
 			}
 		}
 	}

@@ -10561,6 +10561,10 @@ module.exports = {
 	importUrl: {
 		type: String,
 		default: '/api/vue-table/upload'
+	},
+	destroyUrl: {
+		type: String,
+		default: '/api/vue-table/destroy'
 	}
 };
 
@@ -10872,6 +10876,11 @@ var TableProcess = function () {
 			};
 
 			axios.post(url, formData).then(uploadCallback);
+		},
+		destroy: function destroy() {
+			axios.post(this.destroyUrl, this.list.ajax).then(function () {
+				this.reload();
+			}.bind(this));
 		}
 	}
 });
@@ -10977,13 +10986,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "innerHTML": _vm._s(_vm.title)
     }
   }), _c('button', {
+    attrs: {
+      "type": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
         _vm.reload($event)
       }
     }
-  }, [_vm._v("Reload")]), _vm._v(" "), (_vm.hasResult) ? _c('table', {
+  }, [_vm._v("Reload")]), _vm._v(" "), _c('button', {
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.destroy($event)
+      }
+    }
+  }, [_vm._v("Delete all")]), _vm._v(" "), (_vm.hasResult) ? _c('table', {
     staticClass: "table"
   }, [_c('thead', [_c('tr', _vm._l((_vm.labels), function(column) {
     return _c('th', [_c('abbr', {
