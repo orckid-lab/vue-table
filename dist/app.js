@@ -10547,18 +10547,30 @@ module.exports = {
 				prev_page_url: "",
 				from: 0,
 				to: 0,
-				data: []
+				data: [],
+				support: {
+					download: false,
+					upload: false,
+					destroy: false
+				}
 			};
 		}
 	},
 	url: {
 		type: String
 	},
+	target: {
+		type: String
+	},
 	pagingUrl: {
 		type: String,
 		default: '/api/vue-table/page'
 	},
-	importUrl: {
+	downloadUrl: {
+		type: String,
+		default: '/api/vue-table/download'
+	},
+	uploadUrl: {
 		type: String,
 		default: '/api/vue-table/upload'
 	},
@@ -10672,66 +10684,67 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
 
 /*class UrlQuery {
-	constructor() {
-		this.url = window.location.href;
-	}
+ constructor() {
+ this.url = window.location.href;
+ }
 
-	static initiate() {
-		return new this;
-	}
+ static initiate() {
+ return new this;
+ }
 
-	hasAttributes() {
-		return this.url.includes('?');
-	}
+ hasAttributes() {
+ return this.url.includes('?');
+ }
 
-	hasAttribute(key) {
-		return this.url.indexOf(`${key}=`) !== -1;
-	}
+ hasAttribute(key) {
+ return this.url.indexOf(`${key}=`) !== -1;
+ }
 
-	add(key, value) {
-		if (this.hasAttribute(key)) {
-			return this.update(key, value);
-		}
+ add(key, value) {
+ if (this.hasAttribute(key)) {
+ return this.update(key, value);
+ }
 
-		let newAttribute = `${key}=${value}`;
+ let newAttribute = `${key}=${value}`;
 
-		if (this.hasAttributes()) {
-			this.url += `&${newAttribute}`;
+ if (this.hasAttributes()) {
+ this.url += `&${newAttribute}`;
 
-			return this;
-		}
+ return this;
+ }
 
-		this.url += `?${newAttribute}`;
+ this.url += `?${newAttribute}`;
 
-		return this;
-	}
+ return this;
+ }
 
-	update(key, value) {
-		let pattern = `${key}=(.[^&]*)&?`;
+ update(key, value) {
+ let pattern = `${key}=(.[^&]*)&?`;
 
-		console.log(pattern);
+ console.log(pattern);
 
-		this.url = this.url.replace(new RegExp(pattern), function (string, match, offset, s) {
-			console.log(string, match, offset, s);
-			return string.replace(new RegExp(`${key}=${match}`), `${key}=${value}`);
-		});
+ this.url = this.url.replace(new RegExp(pattern), function (string, match, offset, s) {
+ console.log(string, match, offset, s);
+ return string.replace(new RegExp(`${key}=${match}`), `${key}=${value}`);
+ });
 
-		return this;
-	}
+ return this;
+ }
 
-	remove(key, value) {
+ remove(key, value) {
 
-		return this;
-	}
+ return this;
+ }
 
-	updateUrl() {
-		history.pushState(null, null, this.url);
+ updateUrl() {
+ history.pushState(null, null, this.url);
 
-		return this;
-	}
-}*/
+ return this;
+ }
+ }*/
 
 
 
@@ -10782,6 +10795,12 @@ var TableProcess = function () {
 				Object.assign(self.list, response.data);
 			});
 		}
+
+		if (this.target) {
+			axios.post(this.pagingUrl, { target: this.target }).then(function (response) {
+				Object.assign(self.list, response.data);
+			});
+		}
 	},
 
 
@@ -10810,7 +10829,6 @@ var TableProcess = function () {
 				self.downloads.push(__WEBPACK_IMPORTED_MODULE_0__module_Process__["a" /* TableDownload */].create(export_id, data.download));
 
 				window.Echo.channel('download-progress-' + export_id).listen('.OrckidLab.VueTable.Events.VueTableDownloading', function (event) {
-					console.log(event);
 					self.findDownload(export_id).first.status(event.progress);
 				});
 			}, 'json');
@@ -10854,7 +10872,7 @@ var TableProcess = function () {
 
 			formData.append('target', self.list.ajax.target);
 
-			var url = self.importUrl;
+			var url = self.uploadUrl;
 
 			var uploadCallback = function uploadCallback(response) {
 				var data = response.data;
@@ -10875,7 +10893,25 @@ var TableProcess = function () {
 				axios.post(url, response.data).then(uploadCallback);
 			};
 
-			axios.post(url, formData).then(uploadCallback);
+			axios.post(url, formData).then(uploadCallback).catch(function (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.log(error.response.data);
+					console.log(error.response.status);
+					console.log(error.response.headers);
+					alert(error.response.data.header);
+				} else if (error.request) {
+					// The request was made but no response was received
+					// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+					// http.ClientRequest in node.js
+					console.log(error.request);
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.log('Error', error.message);
+				}
+				console.log(error.config);
+			});
 		},
 		destroy: function destroy() {
 			axios.post(this.destroyUrl, this.list.ajax).then(function () {
@@ -10985,7 +11021,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.title)
     }
-  }), _c('button', {
+  }), _vm._v(" "), _c('button', {
     attrs: {
       "type": "button"
     },
