@@ -23,18 +23,30 @@ module.exports = {
 				prev_page_url: "",
 				from: 0,
 				to: 0,
-				data: []
+				data: [],
+				support: {
+					download: false,
+					upload: false,
+					destroy: false,
+				}
 			}
 		}
 	},
 	url: {
 		type: String,
 	},
+	target:{
+		type: String,
+	},
 	pagingUrl: {
 		type: String,
 		default: '/api/vue-table/page',
 	},
-	importUrl: {
+	downloadUrl: {
+		type: String,
+		default: '/api/vue-table/download',
+	},
+	uploadUrl: {
 		type: String,
 		default: '/api/vue-table/upload',
 	},
