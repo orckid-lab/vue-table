@@ -2,7 +2,7 @@
 	<div>
 		<h2 v-html="title"></h2>
 		<button type="button" @click.prevent="reload">Reload</button>
-		<button type="button" @click.prevent="destroy">Delete all</button>
+		<button v-if="supportsDestroy" type="button" @click.prevent="destroy">Delete all</button>
 		<table class="table" v-if="hasResult">
 			<thead>
 			<tr>
@@ -62,7 +62,7 @@
 			</ul>
 		</div>-->
 
-		<div>
+		<div v-if="supportsUpload">
 			<form @submit.prevent="upload">
 				<input type="file" name="import"/>
 

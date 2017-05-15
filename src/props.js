@@ -24,7 +24,7 @@ module.exports = {
 				from: 0,
 				to: 0,
 				data: [],
-				support: {
+				supports: {
 					download: false,
 					upload: false,
 					destroy: false,

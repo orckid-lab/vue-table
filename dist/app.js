@@ -10384,6 +10384,15 @@ module.exports = {
 	},
 	title: function title() {
 		return this.list.title;
+	},
+	supportsUpload: function supportsUpload() {
+		return this.list.supports.upload;
+	},
+	supportsDownload: function supportsDownload() {
+		return this.list.supports.download;
+	},
+	supportsDestroy: function supportsDestroy() {
+		return this.list.supports.destroy;
 	}
 };
 
@@ -10548,7 +10557,7 @@ module.exports = {
 				from: 0,
 				to: 0,
 				data: [],
-				support: {
+				supports: {
 					download: false,
 					upload: false,
 					destroy: false
@@ -11031,7 +11040,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.reload($event)
       }
     }
-  }, [_vm._v("Reload")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Reload")]), _vm._v(" "), (_vm.supportsDestroy) ? _c('button', {
     attrs: {
       "type": "button"
     },
@@ -11041,7 +11050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.destroy($event)
       }
     }
-  }, [_vm._v("Delete all")]), _vm._v(" "), (_vm.hasResult) ? _c('table', {
+  }, [_vm._v("Delete all")]) : _vm._e(), _vm._v(" "), (_vm.hasResult) ? _c('table', {
     staticClass: "table"
   }, [_c('thead', [_c('tr', _vm._l((_vm.labels), function(column) {
     return _c('th', [_c('abbr', {
@@ -11123,7 +11132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "page-item disabled"
   }, [_c('span', {
     staticClass: "page-link"
-  }, [_vm._v("»")])])], 2) : _vm._e(), _vm._v(" "), _c('div', [_c('form', {
+  }, [_vm._v("»")])])], 2) : _vm._e(), _vm._v(" "), (_vm.supportsUpload) ? _c('div', [_c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -11150,7 +11159,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _c('p', [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(log) + "\n\t\t\t\t\t\t\t")])
       })], 2)
     }))])])
-  }))])])
+  }))]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -49,5 +49,17 @@ module.exports = {
 
 	title(){
 		return this.list.title;
+	},
+
+	supportsUpload(){
+		return this.list.supports.upload;
+	},
+
+	supportsDownload(){
+		return this.list.supports.download;
+	},
+
+	supportsDestroy(){
+		return this.list.supports.destroy;
 	}
 };
