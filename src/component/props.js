@@ -28,6 +28,12 @@ module.exports = {
 					download: false,
 					upload: false,
 					destroy: false,
+				},
+				actions: {
+					show: false,
+					edit: false,
+					delete: false,
+					restore: false,
 				}
 			}
 		}

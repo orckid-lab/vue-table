@@ -1,4 +1,4 @@
-module.exports = {
+let computed = {
 	hasResult(){
 		return this.list.hasResult;
 	},
@@ -61,5 +61,23 @@ module.exports = {
 
 	supportsDestroy(){
 		return this.list.supports.destroy;
+	},
+
+	showEnabled(){
+		return this.list.actions.show;
+	},
+
+	editEnabled(){
+		return this.list.actions.edit;
+	},
+
+	deleteEnabled(){
+		return this.list.actions.delete;
+	},
+
+	restoreEnabled(){
+		return this.list.actions.restore;
 	}
 };
+
+module.exports = computed;

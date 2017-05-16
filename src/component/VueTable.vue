@@ -16,7 +16,16 @@
 			</tfoot>
 			<tbody>
 			<tr v-for="row in rows">
-				<td v-for="value in row" v-html="value"></td>
+				<template v-for="(value, $index) in row">
+					<td v-if="typeof(value) === 'object' && 'actions' in value">
+						<template v-for="(action, name) in value.actions">
+							<button v-if="action" @click.prevent="$emit(name, value.row)">
+								<i :class="getActionIcon(name)"></i>
+							</button>
+						</template>
+					</td>
+					<td v-else v-html="value"></td>
+				</template>
 			</tr>
 			</tbody>
 		</table>
@@ -179,6 +188,12 @@
 				list: this.vueTable,
 				downloads: [],
 				uploads: [],
+				actionIcons: {
+					show: 'folder-open-o',
+					edit: 'pencil',
+					destroy: 'delete',
+					restore: 'reload',
+				}
 			}
 		},
 
@@ -330,6 +345,13 @@
 				axios.post(this.destroyUrl, this.list.ajax).then(function () {
 					this.reload();
 				}.bind(this))
+			},
+
+			getActionIcon(name){
+				return [
+					'fa',
+					'fa-' + this.actionIcons[name],
+				];
 			}
 		}
 	}
