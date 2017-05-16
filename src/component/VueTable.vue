@@ -21,7 +21,7 @@
 						<template v-for="(action, name) in value.actions">
 							<button v-if="action" @click.prevent="$emit(name, value.row)">
 								{{ mapActionLabel(name) }}
-								<i :class="mapActionIcon(name)"></i>
+								<!--<i :class="mapActionIcon(name)"></i>-->
 							</button>
 						</template>
 					</td>
