@@ -16,7 +16,7 @@
 			</tfoot>
 			<tbody>
 			<tr v-for="row in rows">
-				<td v-for="column in row">{{ column }}</td>
+				<td v-for="value in row" v-html="value"></td>
 			</tr>
 			</tbody>
 		</table>
@@ -152,7 +152,7 @@
 	 }
 	 }*/
 
-	import {TableDownload, TableUpload} from './module/Process';
+	import {TableDownload, TableUpload} from '../module/Process';
 
 	class TableProcess {
 		constructor() {
