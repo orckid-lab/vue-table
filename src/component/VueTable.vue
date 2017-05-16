@@ -20,7 +20,8 @@
 					<td v-if="typeof(value) === 'object' && 'actions' in value">
 						<template v-for="(action, name) in value.actions">
 							<button v-if="action" @click.prevent="$emit(name, value.row)">
-								<i :class="getActionIcon(name)"></i>
+								{{ mapActionLabel(name) }}
+								<i :class="mapActionIcon(name)"></i>
 							</button>
 						</template>
 					</td>
@@ -193,6 +194,12 @@
 					edit: 'pencil',
 					destroy: 'delete',
 					restore: 'reload',
+				},
+				actionLabels: {
+					show: 'View',
+					edit: 'Edit',
+					destroy: 'Delete',
+					restore: 'Restore',
 				}
 			}
 		},
@@ -347,11 +354,15 @@
 				}.bind(this))
 			},
 
-			getActionIcon(name){
+			mapActionIcon(name){
 				return [
 					'fa',
 					'fa-' + this.actionIcons[name],
 				];
+			},
+
+			mapActionLabel(name){
+				return this.actionLabels[name];
 			}
 		}
 	}
