@@ -1,6 +1,6 @@
 class Process{
 	constructor(){
-		if (new.target === Process) {
+		if (this === Process) {
 			throw new TypeError("Cannot construct Abstract instances directly");
 		}
 	}
