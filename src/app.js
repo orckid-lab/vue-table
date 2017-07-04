@@ -1,3 +1,3 @@
-import VueTable from './VueTable.vue'
+import VueTable from './component/VueTable.vue'
 
 Vue.component('vue-table', VueTable);

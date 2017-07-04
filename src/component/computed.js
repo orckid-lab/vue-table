@@ -1,4 +1,4 @@
-module.exports = {
+let computed = {
 	hasResult(){
 		return this.list.hasResult;
 	},
@@ -49,5 +49,35 @@ module.exports = {
 
 	title(){
 		return this.list.title;
+	},
+
+	supportsUpload(){
+		return this.list.supports.upload;
+	},
+
+	supportsDownload(){
+		return this.list.supports.download;
+	},
+
+	supportsDestroy(){
+		return this.list.supports.destroy;
+	},
+
+	showEnabled(){
+		return this.list.actions.show;
+	},
+
+	editEnabled(){
+		return this.list.actions.edit;
+	},
+
+	deleteEnabled(){
+		return this.list.actions.delete;
+	},
+
+	restoreEnabled(){
+		return this.list.actions.restore;
 	}
 };
+
+module.exports = computed;
