@@ -18,12 +18,16 @@
 			<tr v-for="row in rows">
 				<template v-for="(value, $index) in row">
 					<td v-if="typeof(value) === 'object' && 'actions' in value">
-						<template v-for="(action, name) in value.actions">
+						<template v-for="action in value.actions">
+							<a class="row-action" :class="action.type" v-if="action.anchor" :href="action.url" :target="action.target ? action.target : false">{{ action.label }}</a>
+							<button class="row-action" :class="action.type" v-if="action.button" type="button" @click="rowAction(action)">{{ action.label }}</button>
+						</template>
+						<!--<template v-for="(action, name) in value.actions">
 							<button v-if="action" @click.prevent="$emit(name, value.row)">
 								{{ mapActionLabel(name) }}
-								<!--<i :class="mapActionIcon(name)"></i>-->
+								&lt;!&ndash;<i :class="mapActionIcon(name)"></i>&ndash;&gt;
 							</button>
-						</template>
+						</template>-->
 					</td>
 					<td v-else v-html="value"></td>
 				</template>
@@ -363,6 +367,10 @@
 
 			mapActionLabel(name){
 				return this.actionLabels[name];
+			},
+
+			rowAction(action){
+				this.$emit(action.type, action);
 			}
 		}
 	}
