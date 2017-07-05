@@ -19,8 +19,16 @@
 				<template v-for="(value, $index) in row">
 					<td v-if="typeof(value) === 'object' && 'actions' in value">
 						<template v-for="action in value.actions">
-							<a class="row-action" :class="action.type" v-if="action.anchor" :href="action.url" :target="action.target ? action.target : false">{{ action.label }}</a>
-							<button class="row-action" :class="action.type" v-if="action.button" type="button" @click="rowAction(action)">{{ action.label }}</button>
+							<a class="row-action" :class="action.type" v-if="action.anchor" :href="action.url" :target="action.target ? action.target : false">
+								<slot :name="action.type" :action="action" :row="value">
+									{{ action.label }}
+								</slot>
+							</a>
+							<button class="row-action" :class="action.type" v-if="action.button" type="button" @click="rowAction(action)">
+								<slot :name="action.type" :action="action" :row="value">
+									{{ action.label }}
+								</slot>
+							</button>
 						</template>
 						<!--<template v-for="(action, name) in value.actions">
 							<button v-if="action" @click.prevent="$emit(name, value.row)">
