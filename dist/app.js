@@ -345,6 +345,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
+//
+//
 
 /*class UrlQuery {
  constructor() {
@@ -922,7 +925,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }, [_vm._t(action.type, [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(action.label) + "\n\t\t\t\t\t\t\t")], {
           action: action,
           row: value
-        })], 2) : _vm._e()]
+        })], 2) : _vm._e(), _vm._v(" "), (!action.anchor && !action.button) ? _vm._t(action.type, [_vm._v("\n\t\t\t\t\t\t\t" + _vm._s(action.label) + "\n\t\t\t\t\t\t")], {
+          action: action,
+          row: value
+        }) : _vm._e()]
       })], 2) : _c('td', {
         domProps: {
           "innerHTML": _vm._s(value)

@@ -29,6 +29,9 @@
 									{{ action.label }}
 								</slot>
 							</button>
+							<slot v-if="!action.anchor && !action.button" :name="action.type" :action="action" :row="value">
+								{{ action.label }}
+							</slot>
 						</template>
 						<!--<template v-for="(action, name) in value.actions">
 							<button v-if="action" @click.prevent="$emit(name, value.row)">
