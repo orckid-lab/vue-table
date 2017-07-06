@@ -29,7 +29,7 @@
 									{{ action.label }}
 								</slot>
 							</button>
-							<slot v-if="!action.anchor && !action.button" :name="action.type" :action="action" :row="value">
+							<slot v-if="!action.anchor && !action.button" :name="action.type" :action="action" :row="value" @click="rowAction(action)">
 								{{ action.label }}
 							</slot>
 						</template>
