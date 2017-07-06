@@ -873,21 +873,11 @@ module.exports = computed;
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h2', {
+  return _c('div', [_c('h3', {
     domProps: {
       "innerHTML": _vm._s(_vm.title)
     }
-  }), _vm._v(" "), _c('button', {
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.reload($event)
-      }
-    }
-  }, [_vm._v("Reload")]), _vm._v(" "), (_vm.supportsDestroy) ? _c('button', {
+  }), _vm._v(" "), (_vm.supportsDestroy) ? _c('button', {
     attrs: {
       "type": "button"
     },
@@ -900,12 +890,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Delete all")]) : _vm._e(), _vm._v(" "), (_vm.hasResult) ? _c('table', {
     staticClass: "table"
   }, [_c('thead', [_c('tr', _vm._l((_vm.labels), function(column) {
-    return _c('th', [_c('abbr', {
-      attrs: {
-        "title": column
-      }
-    }, [_vm._v(_vm._s(column))])])
-  }))]), _vm._v(" "), _c('tfoot', [_c('tr', _vm._l((_vm.labels), function(column) {
     return _c('th', [_c('abbr', {
       attrs: {
         "title": column
@@ -945,7 +929,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       })]
     })], 2)
-  }))], 1) : _c('p', [_vm._v("No results found.")]), _vm._v(" "), (_vm.hasPages) ? _c('ul', {
+  }))]) : _c('p', [_vm._v("No results found.")]), _vm._v(" "), (_vm.hasPages) ? _c('ul', {
     staticClass: "pagination"
   }, [(_vm.onFirstPage) ? _c('li', {
     staticClass: "page-item disabled"

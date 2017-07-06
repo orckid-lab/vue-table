@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h2 v-html="title"></h2>
-		<button type="button" @click.prevent="reload">Reload</button>
+		<h3 v-html="title"></h3>
+		<!--<button type="button" @click.prevent="reload">Reload</button>-->
 		<button v-if="supportsDestroy" type="button" @click.prevent="destroy">Delete all</button>
 		<table class="table" v-if="hasResult">
 			<thead>
@@ -9,11 +9,11 @@
 				<th v-for="column in labels"><abbr :title="column">{{ column }}</abbr></th>
 			</tr>
 			</thead>
-			<tfoot>
-			<tr>
-				<th v-for="column in labels"><abbr :title="column">{{ column }}</abbr></th>
-			</tr>
-			</tfoot>
+			<!--<tfoot>-->
+			<!--<tr>-->
+				<!--<th v-for="column in labels"><abbr :title="column">{{ column }}</abbr></th>-->
+			<!--</tr>-->
+			<!--</tfoot>-->
 			<tbody>
 			<tr v-for="row in rows">
 				<template v-for="(value, $index) in row">
